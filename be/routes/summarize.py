@@ -2,6 +2,7 @@
 from flask import Blueprint, request, jsonify
 from services.openai_summary import get_summary
 from utils.validator import is_valid_url
+from services.history_store import save_summary
 
 summarize_bp = Blueprint("summarize", __name__)
 
