@@ -16,6 +16,8 @@ def summarize():
 
     try:
         summary = get_summary(url)
+        save_summary(url, summary)
         return jsonify({"summary": summary})
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
