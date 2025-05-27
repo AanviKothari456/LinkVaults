@@ -4,3 +4,4 @@ from routes.summarize import summarize_bp
 from routes.history import history_bp
 app.register_blueprint(history_bp)
 CORS(app)
+from dotenv import load_dotenv\nload_dotenv()
