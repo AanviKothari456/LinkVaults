@@ -1,18 +1,1 @@
-# app.py
-from flask import Flask
-from flask_cors import CORS
-from routes.summarize import summarize_bp
-from routes.history import history_bp
-
-
-app = Flask(__name__)
-CORS(app)
-
-app.register_blueprint(summarize_bp)
-app.register_blueprint(history_bp)
-@app.route("/")
-def home():
-    return "LinkVault API running"
-
-if __name__ == "__main__":
-    app.run(debug=True)
+from flask import Flask\napp = Flask(__name__)\n@app.route('/')\ndef home(): return 'OK'
