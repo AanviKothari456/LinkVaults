@@ -1,32 +1,12 @@
-from flask import Flask, request, jsonify
-import openai
-import os
-from dotenv import load_dotenv
+# app.py
+from flask import Flask
 from flask_cors import CORS
-
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+from routes.summarize import summarize_bp
 
 app = Flask(__name__)
-CORS(app)  # allow frontend to connect
+CORS(app)
 
-@app.route("/api/summarize", methods=["POST"])
-def summarize():
-    data = request.get_json()
-    url = data.get("url")
-
-    prompt = f"Summarize the following URL for developers: {url}"
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
-        )
-        summary = response.choices[0].message.content.strip()
-        return jsonify({"summary": summary})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+app.register_blueprint(summarize_bp)
 
 @app.route("/")
 def home():
