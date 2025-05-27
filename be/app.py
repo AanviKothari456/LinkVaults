@@ -2,15 +2,13 @@ from flask import Flask, request, jsonify
 import openai
 import os
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Welcome to LinkVault API!"
+CORS(app)  # allow frontend to connect
 
 @app.route("/api/summarize", methods=["POST"])
 def summarize():
@@ -29,6 +27,10 @@ def summarize():
         return jsonify({"summary": summary})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/")
+def home():
+    return "LinkVault API running"
 
 if __name__ == "__main__":
     app.run(debug=True)
